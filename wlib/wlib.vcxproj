@@ -80,13 +80,13 @@
     <ClInclude Include="..\net\w_client.h" />
     <ClInclude Include="..\net\w_conn.h" />
     <ClInclude Include="..\net\w_net.h" />
-    <ClInclude Include="..\net\w_noncopyable.h" />
-    <ClInclude Include="..\net\w_prototype.h" />
     <ClInclude Include="..\net\w_reqres.h" />
     <ClInclude Include="..\net\w_selector.h" />
     <ClInclude Include="..\net\w_server.h" />
     <ClInclude Include="..\utils\w_lock.h" />
     <ClInclude Include="..\utils\w_log.h" />
+    <ClInclude Include="..\utils\w_noncopyable.h" />
+    <ClInclude Include="..\utils\w_prototype.h" />
     <ClInclude Include="..\utils\w_singleton.h" />
     <ClInclude Include="..\utils\w_str2wstr.h" />
     <ClInclude Include="..\utils\w_thread.h" />

@@ -51,12 +51,6 @@
     <ClInclude Include="..\net\w_net.h">
       <Filter>wlib\net</Filter>
     </ClInclude>
-    <ClInclude Include="..\net\w_noncopyable.h">
-      <Filter>wlib\net</Filter>
-    </ClInclude>
-    <ClInclude Include="..\net\w_prototype.h">
-      <Filter>wlib\net</Filter>
-    </ClInclude>
     <ClInclude Include="..\net\w_reqres.h">
       <Filter>wlib\net</Filter>
     </ClInclude>
@@ -82,6 +76,12 @@
       <Filter>wlib\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\utils\w_type.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\w_noncopyable.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\w_prototype.h">
       <Filter>wlib\utils</Filter>
     </ClInclude>
   </ItemGroup>
