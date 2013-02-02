@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="wlib">
+      <UniqueIdentifier>{0195a3d6-039a-4268-b4cf-76cbd5d88c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{bb1f6ee5-794c-4246-b5bb-7c7a4b443dac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="test\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="test\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="wlib\utils">
+      <UniqueIdentifier>{1046e481-88a6-495c-9338-3d19f35cdcc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wlib\net">
+      <UniqueIdentifier>{d72e0172-13d8-43c2-8e87-fac8203051cd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>test\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>test\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>test\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wlib.h">
+      <Filter>test\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\w_lock.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\w_log.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\w_singleton.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\w_str2wstr.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\w_thread.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\net\w_client.h">
+      <Filter>wlib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\net\w_conn.h">
+      <Filter>wlib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\net\w_net.h">
+      <Filter>wlib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\net\w_noncopyable.h">
+      <Filter>wlib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\net\w_prototype.h">
+      <Filter>wlib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\net\w_reqres.h">
+      <Filter>wlib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\net\w_selector.h">
+      <Filter>wlib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\net\w_server.h">
+      <Filter>wlib\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\util\w_type.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>test\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wlib.cpp">
+      <Filter>test\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="wlib.rc">
+      <Filter>test\Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>test\Resource Files</Filter>
+    </Image>
+    <Image Include="wlib.ico">
+      <Filter>test\Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\util\w_log.inl">
+      <Filter>wlib\utils</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,18 +1,14 @@
 /*
+ * w_noncopyable.h
  * copy form boost/noncopyable
- *
- * wangch
  */
 
-#ifndef NBL_NONCOPYABLE_H
-#define NBL_NONCOPYABLE_H  
+#ifndef W_NONCOPYABLE_H_
+#define W_NONCOPYABLE_H_  
 
-namespace nbcl
-{
-   namespace noncopyable_
-   {
-      class noncopyable
-      {
+namespace wlib {
+   namespace noncopyable_ {
+      class noncopyable {
       protected:
          noncopyable() {}
          ~noncopyable() {}
@@ -25,4 +21,4 @@ namespace nbcl
    typedef noncopyable_::noncopyable noncopyable;
 }
 
-#endif //NBL_NONCOPYABLE_H
+#endif // W_NONCOPYABLE_H_

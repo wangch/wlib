@@ -84,7 +84,7 @@ private:
    bool stoped_;
 	FILE* f_;
 	bool std_out_;
-	mutex mutex_;
+	w_mutex mutex_;
 	std::string fpath_;
    bool encrypted_;
 };

@@ -39,14 +39,14 @@ public:
 
 private:
 	static TYPE* instance_;
-	static mutex mutex_;
+	static w_mutex mutex_;
 };
 
 template<typename TYPE, typename LOCK>
 TYPE* w_singleton<TYPE, LOCK>::instance_ = 0;
 
 template<typename TYPE, typename LOCK>
-mutex w_singleton<TYPE, LOCK>::mutex_;
+w_mutex w_singleton<TYPE, LOCK>::mutex_;
 
 } //namespace wlib
 
