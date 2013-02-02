@@ -12,7 +12,7 @@
 #else // _WINDOWS
 #include <pthread.h>
 #endif
-#include "../utilss/w_noncopyable.h"
+#include "w_noncopyable.h"
 
 namespace wlib {
 
