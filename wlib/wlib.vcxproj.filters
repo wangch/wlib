@@ -42,21 +42,6 @@
     <ClInclude Include="wlib.h">
       <Filter>test\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\util\w_lock.h">
-      <Filter>wlib\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\util\w_log.h">
-      <Filter>wlib\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\util\w_singleton.h">
-      <Filter>wlib\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\util\w_str2wstr.h">
-      <Filter>wlib\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\util\w_thread.h">
-      <Filter>wlib\utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\net\w_client.h">
       <Filter>wlib\net</Filter>
     </ClInclude>
@@ -81,7 +66,22 @@
     <ClInclude Include="..\net\w_server.h">
       <Filter>wlib\net</Filter>
     </ClInclude>
-    <ClInclude Include="..\util\w_type.h">
+    <ClInclude Include="..\utils\w_lock.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\w_log.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\w_singleton.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\w_str2wstr.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\w_thread.h">
+      <Filter>wlib\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\utils\w_type.h">
       <Filter>wlib\utils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -107,7 +107,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\util\w_log.inl">
+    <None Include="..\utils\w_log.inl">
       <Filter>wlib\utils</Filter>
     </None>
   </ItemGroup>

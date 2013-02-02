@@ -85,12 +85,12 @@
     <ClInclude Include="..\net\w_reqres.h" />
     <ClInclude Include="..\net\w_selector.h" />
     <ClInclude Include="..\net\w_server.h" />
-    <ClInclude Include="..\util\w_type.h" />
-    <ClInclude Include="..\util\w_lock.h" />
-    <ClInclude Include="..\util\w_log.h" />
-    <ClInclude Include="..\util\w_singleton.h" />
-    <ClInclude Include="..\util\w_str2wstr.h" />
-    <ClInclude Include="..\util\w_thread.h" />
+    <ClInclude Include="..\utils\w_lock.h" />
+    <ClInclude Include="..\utils\w_log.h" />
+    <ClInclude Include="..\utils\w_singleton.h" />
+    <ClInclude Include="..\utils\w_str2wstr.h" />
+    <ClInclude Include="..\utils\w_thread.h" />
+    <ClInclude Include="..\utils\w_type.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -111,7 +111,7 @@
     <Image Include="wlib.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\util\w_log.inl" />
+    <None Include="..\utils\w_log.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

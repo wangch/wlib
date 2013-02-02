@@ -6,7 +6,7 @@
 #ifndef W_CONN_H_
 #define W_CONN_H_
 
-#include "../util/w_thread.h"
+#include "../utils/w_thread.h"
 #include "w_net.h"
 #include "w_selector.h"
 

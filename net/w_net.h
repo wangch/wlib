@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string>
-#include "../util/w_log.h"
+#include "../utils/w_log.h"
 #include "w_reqres.h"
 
 namespace wlib  {

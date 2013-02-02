@@ -11,10 +11,10 @@
 #define W_SELETECTOR_H_  
 
 #include <map>
-#include "../util/w_thread.h"
-#include "../util/w_type.h"
-#include "../util/w_singleton.h"
-#include "../util/w_log.h"
+#include "../utils/w_thread.h"
+#include "../utils/w_type.h"
+#include "../utils/w_singleton.h"
+#include "../utils/w_log.h"
 #include "w_net.h"
 
 namespace wlib {
@@ -112,7 +112,6 @@ namespace wlib {
 		~selector() {
 			w_trace(("selector::~selector()"));
 			run_ = false;
-			//for_each(map_.begin(), map_.end(), w_deleter());
 		}
 
 		// the threadfunc should call exce
