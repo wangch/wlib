@@ -128,6 +128,7 @@ namespace wlib {
          w_trace(("w_server::error_handler()"));
          
          IT it = conns_.find(p);
+         delete it->second;
          conns_.erase(it);
          return 0; 
       }

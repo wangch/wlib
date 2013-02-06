@@ -153,7 +153,7 @@ namespace wlib {
 
 			w_respond_writer w(rw_);
 			{
-				w.p_ = peer_;
+				//w.p_ = peer_;
 				return s_->handler()->serve_request(w, &req);
 			}
 		}

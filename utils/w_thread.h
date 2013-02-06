@@ -5,7 +5,7 @@
 #ifndef W_THREAD_H_
 #define W_THREAD_H_
 
-#ifdef WINDOWS
+#ifdef _WINDOWS
 #include <windows.h>
 #include <process.h>
 #else
@@ -15,7 +15,7 @@
 namespace wlib
 {
 
-#ifdef WINDOWS
+#ifdef _WINDOWS
 typedef HANDLE  w_thread_t;
 typedef void* (*thr_f)(void*);
 typedef void (*thr_wf)(void*);
@@ -28,7 +28,7 @@ inline w_thread_t w_thread_self()
 {
 	return GetCurrentThread();
 }
-#else // WINDOWS
+#else // _WINDOWS
 typedef pthread_t w_thread_t;
 inline int w_thread_join(w_thread_t thr)
 {
@@ -47,7 +47,7 @@ inline w_thread_t w_thread_self()
 {
 	return pthread_self();
 }
-#endif // WINDOWS
+#endif // _WINDOWS
 
 template<class T>
 class w_thread

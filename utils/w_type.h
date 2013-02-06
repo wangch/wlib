@@ -48,13 +48,13 @@ public:
    ~w_deletor() {
       delete t_;
    }
-}
+};
 
 struct w_buffer_deleter {
 private:
-	char* buf_;
+	byte* buf_;
 public:
-	w_buffer_deleter(char* buf) : buf_(buf) {
+	w_buffer_deleter(byte* buf) : buf_(buf) {
 	}
 	~w_buffer_deleter() {
 		delete [] buf_;
