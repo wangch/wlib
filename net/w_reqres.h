@@ -8,7 +8,7 @@
 namespace wlib {
 
 	struct w_rr_header {
-		int isreq_; // if 1, the body is req; if 0, the body is respond;
+		int isreq_; // if 0, the body is req; if 1, the body is respond;
 		int req_type_; // 
 		int req_id_; // if respond, req_id_ is reply the request id;
 		int body_len_; // the body length, without the header 

@@ -46,9 +46,9 @@ namespace wlib
 			struct tm* tt = ::localtime(&t);
 
 			w_thread_t thr = w_thread_self();
-			sprintf(buf, "%4.4d-%2.2d-%2.2d %2.2d:%2.2d:%2.2d %p==>", 
+			sprintf(buf, "%4.4d-%2.2d-%2.2d %2.2d:%2.2d:%2.2d==>", 
 					tt->tm_year+1900, tt->tm_mon+1, tt->tm_mday,
-					tt->tm_hour, tt->tm_min, tt->tm_sec, thr);
+					tt->tm_hour, tt->tm_min, tt->tm_sec);
 
 			size_t len = strlen(buf);
 			vsnprintf(buf+len,(sizeof(buf) - len - 4), fmt, args);

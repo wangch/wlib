@@ -15,35 +15,19 @@
 
 namespace wlib {
 
-#define w_dbg Logger::instance()->log  // for remove (())
-
-#define w_debug(x) W_DEBUG(x)
-#define w_error(x) W_ERROR(x)
-#define w_error_r(x, y) W_ERROR_RETURN(x, y)
-#define w_trace(x) W_TRACE(x)
-
 //#define W_NLOGGING
 #define W_NTRACE
 
-
+static void empty_func(int, const char*, ...) {}
+   
 #if defined (W_NLOGGING)
-#  define W_DEBUG(X) do{}while(0)
-#  define W_ERROR(X) do{}while(0)
-#  define W_ERROR_RETURN(X, Y) do{return Y;}while(0)
-#else // (W_NLOGGING)
-#  define W_DEBUG(X)   \
-	do{  \
-	Logger::instance()->log X; \
-	}while(0)
-
-#  define W_ERROR(X)  W_DEBUG(X)
-
-#  define W_ERROR_RETURN(X, Y)  \
-	do{   \
-	W_ERROR(X); \
-	return Y;   \
-	}while(0)
+#  define w_dbg  empty_func
+#else
+#  define w_dbg Logger::instance()->log  // for remove (())
 #endif // (W_NLOGGING)
+
+#define w_trace(x) W_TRACE(x)
+
 
 #if defined (W_NTRACE)
 # define W_TRACE(X) do{}while(0)
@@ -94,12 +78,12 @@ private:
 struct w_tracer {
 	w_tracer(const char* fname, const char* mname, int linenum) 
 		: f_(fname), m_(mname), l_(linenum) {
-		W_DEBUG((INFO, "<+++ %s +++> in the %s at the %d line.\n", 
-			mname, fname, linenum));
+		w_dbg(INFO, "<+++ %s +++> in the %s at the %d line.\n", 
+			mname, fname, linenum);
 	}
 	~w_tracer(void) {
-		W_DEBUG((INFO, "<--- %s ---> in the %s at the %d line.\n", 
-			m_.c_str(), f_.c_str(), l_));
+		w_dbg(INFO, "<--- %s ---> in the %s at the %d line.\n", 
+			m_.c_str(), f_.c_str(), l_);
 	}
 private:
 	std::string f_;

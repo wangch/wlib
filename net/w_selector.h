@@ -27,7 +27,7 @@ namespace wlib {
 		int ret_val_;
 
 		int select() {
-			w_trace(("selector::select()"));
+			w_trace("selector::select()");
 
 			// TODO fdwrite and fdexcept support?
 			fd_set fdread/*, fdwrite, fdexcept*/ ;
@@ -56,10 +56,12 @@ namespace wlib {
 				nfds += 1; // 
 
 				int rc = ::select(nfds, &fdread, NULL/*&fdwrite*/, NULL/*&fdexcept*/, &timeout);
-				if(rc == -1)
-					w_error_r((CRIT, "select() error"), -1);
+				if(rc == -1) {
+					w_dbg(CRIT, "select() error");
+               return -1;
+            }
 				else if(rc == 0) { // timeout
-					//w_debug((INFO, "select() timeout"));
+					//w_debug((INFO, "select() timeout");
 					continue;
 				}
 
@@ -73,7 +75,7 @@ namespace wlib {
 							socklen_t addrlen = sizeof(addr);
 							w_socket cs = ::accept(s, (struct sockaddr*)&addr, &addrlen);
 							if(cs == -1) {
-								w_error((WARN, "accept() error."));
+								w_dbg(WARN, "accept() error.");
 								close(cs);
 							} else {
 								e = h->accept_handler(cs, addr);
@@ -88,7 +90,7 @@ namespace wlib {
 						e = h->write_handler(s);
 					}
 					if(FD_ISSET(s, &fdexcept)) {
-						w_error((WARN, "fd except."));
+						w_dbg(WARN, "fd except.");
 						e = h->except_handler(s);
 					}
 					*/
@@ -106,41 +108,43 @@ namespace wlib {
 
 	public:
 		selector() : run_(true) {
-			w_trace(("selector::selector()"));
+			w_trace("selector::selector()");
 		}
 
 		~selector() {
-			w_trace(("selector::~selector()"));
+			w_trace("selector::~selector()");
 			run_ = false;
 		}
 
 		// the threadfunc should call exce
 		int thr_exec() {
-			w_trace(("selector::exec()"));
+			w_trace("selector::exec()");
 #if defined(_WINDOWS)
 			WSADATA wsd;
-			if(WSAStartup(MAKEWORD(2, 2), &wsd) != 0)
-				w_error_r((CRIT, "unable to load Winsock!"), -1);
+			if(WSAStartup(MAKEWORD(2, 2), &wsd) != 0) {
+				w_dbg(CRIT, "unable to load Winsock!");
+            return -1;
+         }
 #endif
 			return this->select();
 		}
 
 		// create a new thread and call exec
 		int run(bool joinable = false) {
-			w_trace(("selector::run()"));
+			w_trace("selector::run()");
 			return thr_.run(this, joinable);
 		}
 
 		// register the sock handler 
 		int handle(w_sock_handler* h, w_socket s) {
-			w_trace(("selector::handle()"));
+			w_trace("selector::handle()");
 			
 			map_.insert(pair<w_socket, w_sock_handler*>(s, h));
 			return 0;
 		}
 
 		int unhandle(w_socket s) {
-			w_trace(("selector::unhandle()"));
+			w_trace("selector::unhandle()");
 			
 			map_.erase(s);
 			shutdown(s, 2);

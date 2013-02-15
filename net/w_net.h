@@ -51,7 +51,7 @@ inline int close(w_socket s) {
 	  	}
 
 		w_socket listen(int port, bool istcp = true) {
-			w_trace(("w_sock_handler::listen()"));
+			w_trace("w_sock_handler::listen()");
 
 			struct addrinfo hints, *res = NULL, *ptr = NULL;
 			memset(&hints, 0, sizeof(hints));
@@ -68,14 +68,16 @@ inline int close(w_socket s) {
 			sprintf(svc, "%d", port);
 
 			int rc = getaddrinfo(NULL, svc, &hints, &res);
-			if(rc != 0)
-				w_error_r((CRIT, "getaddinfo() error"), -1);
+			if(rc != 0) {
+				w_dbg(CRIT, "getaddinfo() error");
+            return -1;
+         }
 
 			w_socket fd; 
 			for(ptr = res; ptr != NULL; ptr = ptr->ai_next) {
 				fd = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
 				if(fd == -1) {
-					w_error((WARN, "socket() error"));
+					w_dbg(WARN, "socket() error");
 					continue;
 				}
 
@@ -83,7 +85,7 @@ inline int close(w_socket s) {
 					if(istcp) {
 						listening_ = true;
 						if(::listen(fd, 49) != 0) { // tcp listen
-							w_error((WARN, "listen() error"));
+							w_dbg(WARN, "listen() error");
 							close(fd);
 							continue;
 						}
@@ -94,7 +96,7 @@ inline int close(w_socket s) {
 				}
 			}
 			if (ptr == NULL) {
-				w_error((CRIT, "no socket listen success"));
+				w_dbg(CRIT, "no socket listen success");
 				fd = -1;
 			}
 			freeaddrinfo(res);
@@ -102,7 +104,7 @@ inline int close(w_socket s) {
 		}
 
 		w_socket connect(std::string& server, int port, bool istcp = true) {
-			w_trace(("w_sock_handler::connect()"));
+			w_trace("w_sock_handler::connect()");
 			struct addrinfo hints, *res = NULL, *ptr = NULL;
 			memset(&hints, 0, sizeof(hints));
 
@@ -116,14 +118,15 @@ inline int close(w_socket s) {
 
 			int rc = getaddrinfo(server.c_str(), svc, &hints, &res);
 			if (rc != 0) {
-				w_error_r((CRIT, "getaddinfo() error"), -1);
+				w_dbg(CRIT, "getaddinfo() error");
+            return -1;
 			}
 
 			w_socket fd; 
 			for(ptr = res; ptr != NULL; ptr = ptr->ai_next) {
 				fd = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
 				if(fd == -1) {
-					w_error((WARN, "socket() error"));
+					w_dbg(WARN, "socket() error");
 					continue;
 				}
 				if(::connect(fd, ptr->ai_addr, ptr->ai_addrlen) != -1) {
@@ -133,7 +136,7 @@ inline int close(w_socket s) {
 			}
 
 			if (ptr == NULL) {
-				w_error((CRIT, "no socket connect success"));
+				w_dbg(CRIT, "no socket connect success");
 				fd = -1;
 			}
 
@@ -153,15 +156,15 @@ inline int close(w_socket s) {
 		w_socket fd_;
 	public:
 		w_reader_writer() {
-			w_trace(("w_reader_writer::w_reader_writer()"));
+			w_trace("w_reader_writer::w_reader_writer()");
 		}
 
 		w_reader_writer(int fd) : fd_(fd) {
-			w_trace(("w_reader_writer::w_reader_writer(int)"));
+			w_trace("w_reader_writer::w_reader_writer(int)");
 		}
 
 		~w_reader_writer() {
-			w_trace(("w_reader_writer::~w_reader_writer()"));
+			w_trace("w_reader_writer::~w_reader_writer()");
 		}
 
 		w_socket fd() {
@@ -169,7 +172,7 @@ inline int close(w_socket s) {
 	  	}
 
 		int read(char* buf, int len) {
-			w_trace(("w_reader_writer::read(char*, int)"));
+			w_trace("w_reader_writer::read(char*, int)");
 			int r = 0;
 			do {
 				int n = recv(fd_, buf + r, len - r, 0);
@@ -177,7 +180,8 @@ inline int close(w_socket s) {
 					return 0;
 				}
 				if (n == -1) {
-					w_error_r((CRIT, "recv() error int w_reader_writer::read()"), -1);
+					w_dbg(CRIT, "recv() error int w_reader_writer::read()");
+               return -1;
 				}
 				r += n;
 			} while (r < len);
@@ -186,12 +190,13 @@ inline int close(w_socket s) {
 		}
 
 		int write(char* buf, int len) {
-			w_trace(("w_reader_writer::write(char*, int)"));
+			w_trace("w_reader_writer::write(char*, int)");
 			int s = 0;
 			do {
 				int n = send(fd_, buf + s, len - s, 0);
 				if (n == -1) {
-					w_error_r((CRIT, "send() error int w_reader_writer::write()"), -1);
+					w_dbg(CRIT, "send() error int w_reader_writer::write()");
+               return -1;
 				}
 				s += n;
 			} while (s < len);
@@ -204,3 +209,4 @@ inline int close(w_socket s) {
 } // namespace wlib
 
 #endif //W_NET_H_
+

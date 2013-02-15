@@ -28,7 +28,7 @@ namespace wlib {
 		typedef map<peer, w_conn<w_server>*>::iterator IT;
 
 		virtual int accept_handler(w_socket s, struct sockaddr_storage peer_addr) {
-			w_trace(("w_server::accept_handler()"));
+			w_trace("w_server::accept_handler()");
 			// create a conn for serve the client 
 			w_conn<w_server>* c = new w_conn<w_server>;
 			c->s_ = this;
@@ -42,13 +42,13 @@ namespace wlib {
 					host, NI_MAXHOST, serv, NI_MAXSERV, NI_NUMERICSERV);
 
 			if (r != 0) {
-				w_error((WARN, "getnameinfo error."));
+				w_dbg(WARN, "getnameinfo error.");
 			} else {
 				c->peer_.host_ = host;
 				c->peer_.serv_ = serv;
 			}	
 
-			w_debug((INFO, "new conn from %s:%s", host, serv));
+			w_dbg(INFO, "new conn from %s:%s", host, serv);
 
 			pair<peer, w_conn<w_server>*> p(c->peer_, c);
          {
@@ -61,12 +61,12 @@ namespace wlib {
 
 	public:
 		w_server(int port) : port_(port) {
-			w_trace(("w_server::w_server()"));
+			w_trace("w_server::w_server()");
 			sh_ = new w_serve_mux; // default serve handler
 		}
 
 		virtual ~w_server() {
-			w_trace(("w_server::~w_server()"));
+			w_trace("w_server::~w_server()");
 			delete sh_;
 			w_lock l(m_);
 			IT it = conns_.begin();
@@ -78,10 +78,11 @@ namespace wlib {
 		// Serve Accept incomming connections on the listening socket and
 		// creating a thread service for each client
 		int serve(bool joinable = false) {
-			w_trace(("w_server::serve()"));
+			w_trace("w_server::serve()");
 			w_socket r = listen(port_, true);
 			if (r == -1) {
-				w_error_r((WARN, "listen error in w_server::serve()"), -1);
+				w_dbg(WARN, "listen error in w_server::serve()");
+            return -1;
 			}
 
 			// now we use select modle for asynchronous commucation.
@@ -99,9 +100,9 @@ namespace wlib {
 
 		// send a request to remote client
 		int write_request(string& host, int port, w_request* r) {
-			w_trace(("w_server::write_request()"));
+			w_trace("w_server::write_request()");
 			char serv[NI_MAXSERV];
-			sprintf(serv, "%s", port);
+			sprintf(serv, "%d", port);
 			peer p;
 			p.host_ = host;
 			p.serv_ = serv;
@@ -111,7 +112,8 @@ namespace wlib {
 				w_lock l(m_);
 				IT it = conns_.find(p);
 				if (it == conns_.end()) {
-					w_error_r((CRIT, "the peer %s:%s no connection", host.c_str(), serv), -1);
+					w_dbg(CRIT, "the peer %s:%s no connection", host.c_str(), serv);
+               return -1;
 				}
 				c = it->second;
 			}
@@ -119,14 +121,13 @@ namespace wlib {
 		}
 
 		int handle(int type, w_serve_handler* sh) {
-			w_trace(("w_server::handle()"));
+			w_trace("w_server::handle()");
 
 			return sh_->handle(type, sh);
 		}
 
       int error_handler(peer& p) { 
-         w_trace(("w_server::error_handler()"));
-         
+         w_trace("w_server::error_handler()");
          IT it = conns_.find(p);
          delete it->second;
          conns_.erase(it);
@@ -137,3 +138,4 @@ namespace wlib {
 } //namespace wlib
 
 #endif // W_SERVER_H_
+

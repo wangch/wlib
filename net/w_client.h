@@ -19,12 +19,12 @@ namespace wlib {
 
 	public:
 		w_client() : c_(0) {
-			w_trace(("w_client()"));
+			w_trace("w_client()");
 			h_ = new w_serve_mux;
 		}
 
 		~w_client() {
-			w_trace(("~w_client()"));
+			w_trace("~w_client()");
 			if (c_) {
 				c_->unserve();
 			}
@@ -37,7 +37,7 @@ namespace wlib {
 		}
 
 		int connect(string& host, int port) {
-			w_trace(("w_connect::connect()"));
+			w_trace("w_connect::connect()");
 
 			w_conn<w_client>* c = new w_conn<w_client>;
 			c->peer_.host_ = host;
@@ -50,13 +50,14 @@ namespace wlib {
 			if (s == -1) {
 				c_ = 0;
 				delete c;
-				w_error_r((CRIT, "connect error in w_conncet()"), -1);
+				w_dbg(CRIT, "connect error in w_conncet()");
+            return -1;
 			}
 			w_reader_writer rw(s);
 			c->rw_ = rw;
 			c_ = c;
 
-			w_debug((INFO, "%s:%s", host.c_str(), serv));
+			w_dbg(INFO, "%s:%s", host.c_str(), serv);
 
 			c->serve();
 
@@ -64,12 +65,12 @@ namespace wlib {
 		}
 
 		int write_request(w_request* r) {
-			w_trace(("w_client::write_request()"));
+			w_trace("w_client::write_request()");
 			return c_->write_request(r);
 		}
 
 		int handle(int type, w_serve_handler* sh) {
-			w_trace(("w_client::handle()"));
+			w_trace("w_client::handle()");
 			return h_->handle(type, sh);
 		}
 
@@ -81,3 +82,4 @@ namespace wlib {
 } //namespace wlib
 
 #endif // W_CLIENT_H_
+
