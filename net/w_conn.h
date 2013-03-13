@@ -116,7 +116,6 @@ namespace wlib {
 
 		virtual int error_handler(w_socket s) {
 			w_trace("w_conn::error_handler()");
-         unserve();
          close(s);
          return s_->error_handler(peer_);
 		}

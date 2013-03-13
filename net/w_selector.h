@@ -65,7 +65,7 @@ namespace wlib {
 					continue;
 				}
 
-				for(it = map_.begin(); it != map_.end(); ++it) {
+				for(it = map_.begin(); it != map_.end();) {
 					w_socket s = it->first;
 					w_sock_handler* h = it->second;
 					int e = 0;
@@ -96,7 +96,10 @@ namespace wlib {
 					*/
 					if (e == -1) {
 						h->error_handler(s);
-					}
+                  it = map_.erase(it);
+					} else {
+                  ++it;
+               }
 				} // for
 			} //while
 

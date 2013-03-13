@@ -5,14 +5,13 @@
 #ifndef W_SINGLETON_H_
 #define W_SINGLETON_H_
 
-#include "w_lock.h"
+#include <mutex>
 #include <stdlib.h>
 
 namespace wlib {
 
-template<typename TYPE, typename LOCK = null_lock>
+template<typename TYPE>
 class w_singleton {
-   typedef LOCK scoped_lock;
 protected:
 	w_singleton(void){}
 	virtual ~w_singleton(void){}
@@ -22,7 +21,7 @@ protected:
 public:
 	static TYPE* instance(void) {
 		if(instance_ == 0) {
-			scoped_lock lock(mutex_);
+         std::lock_guard<std::mutex> lock(mutex_);
 			if(instance_ == 0)
 				instance_ = new TYPE();
 
@@ -39,14 +38,14 @@ public:
 
 private:
 	static TYPE* instance_;
-	static w_mutex mutex_;
+   static std::mutex mutex_;
 };
 
-template<typename TYPE, typename LOCK>
-TYPE* w_singleton<TYPE, LOCK>::instance_ = 0;
+template<typename TYPE>
+TYPE* w_singleton<TYPE>::instance_ = 0;
 
-template<typename TYPE, typename LOCK>
-w_mutex w_singleton<TYPE, LOCK>::mutex_;
+template<typename TYPE>
+std::mutex w_singleton<TYPE>::mutex_;
 
 } //namespace wlib
 

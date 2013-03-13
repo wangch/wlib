@@ -81,7 +81,7 @@ inline int close(w_socket s) {
 					continue;
 				}
 
-				if(bind(fd, ptr->ai_addr, ptr->ai_addrlen) == 0) {
+				if(::bind(fd, ptr->ai_addr, ptr->ai_addrlen) == 0) {
 					if(istcp) {
 						listening_ = true;
 						if(::listen(fd, 49) != 0) { // tcp listen

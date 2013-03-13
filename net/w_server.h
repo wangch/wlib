@@ -7,22 +7,25 @@
 #ifndef W_SERVER_H_
 #define W_SERVER_H_
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <string>
-#include <map>
-#include "../utils/w_log.h"
 #include "w_net.h"
 #include "w_selector.h"
 #include "w_conn.h"
+#include "../utils/w_log.h"
+
+#include <string.h>
+#include <string>
+#include <map>
+#include <mutex>
+
+#include <stdlib.h>
+#include <stdio.h>
 
 namespace wlib {
 	using namespace std;
 
 	class w_server : public w_sock_handler {
 		int port_;
-		w_mutex m_;
+      std::mutex m_;
 		w_serve_mux* sh_;
 		map<peer, w_conn<w_server>*> conns_;
 		typedef map<peer, w_conn<w_server>*>::iterator IT;
@@ -52,7 +55,7 @@ namespace wlib {
 
 			pair<peer, w_conn<w_server>*> p(c->peer_, c);
          {
-			   w_lock l(m_);
+            std::lock_guard<std::mutex> l(m_);
 			   conns_.insert(p);
          }
 
@@ -68,7 +71,7 @@ namespace wlib {
 		virtual ~w_server() {
 			w_trace("w_server::~w_server()");
 			delete sh_;
-			w_lock l(m_);
+         std::lock_guard<std::mutex> l(m_);
 			IT it = conns_.begin();
 			for (; it != conns_.end(); ++it) {
 				delete it->second;
@@ -109,7 +112,7 @@ namespace wlib {
 			
 			w_conn<w_server>* c = 0;
 			{ // lock the conns_
-				w_lock l(m_);
+            std::lock_guard<std::mutex> l(m_);
 				IT it = conns_.find(p);
 				if (it == conns_.end()) {
 					w_dbg(CRIT, "the peer %s:%s no connection", host.c_str(), serv);

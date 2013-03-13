@@ -5,13 +5,12 @@
 #ifndef W_LOG_H_
 #define W_LOG_H_
 
-#include "w_thread.h"
 #include "w_singleton.h"
-
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string>
+#include <mutex>
 
 namespace wlib {
 
@@ -43,12 +42,10 @@ enum Log_Level {
 	DEBUG = 0x10	/* 调试程序时的调试日志级别*/
 };
 
-template<class Lock>
 class w_logger;
 
-typedef w_singleton<w_logger<mt_lock>, mt_lock> Logger;
+typedef w_singleton<w_logger> Logger;
 
-template<class Lock>
 class w_logger {
 public:
 	w_logger(void);
@@ -68,7 +65,7 @@ private:
    bool stoped_;
 	FILE* f_;
 	bool std_out_;
-	w_mutex mutex_;
+   std::mutex mutex_;
 	std::string fpath_;
    bool encrypted_;
 };

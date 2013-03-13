@@ -43,10 +43,15 @@ template<class T>
 struct w_deletor {
 private:
    T* t_;
+   bool b_;
 public:
-   w_deletor(T* t) : t_(t) {}
+   w_deletor(T* t, bool b = false) : t_(t), b_(b) {}
    ~w_deletor() {
-      delete t_;
+      if (b_) {
+         delete [] t_;
+      } else {
+         delete t_;
+      }
    }
 };
 
